@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
+import { connectDB } from "./lib/db.js";
+import { clerkClient, clerkMiddleware, getAuth } from '@clerk/express'
 
 
 import userRoutes from "./routes/user.route.js";
@@ -14,9 +16,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-
-
 app.use(express.json());
+
+app.use(clerkMiddleware());//this will add auth to req object => req.auth
 
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
@@ -28,4 +30,5 @@ app.use("/api/stats", statsRoutes);
 // Start server
 app.listen(PORT, () => {
     console.log("Server running on port " + PORT);
+    connectDB();
 });
