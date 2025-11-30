@@ -2,8 +2,6 @@ import { Song } from "../model/song.model.js";
 import { Album } from "../model/album.model.js";
 import cloudinary from "../lib/cloudinary.js";
 
-
-
 const uploadToCloudinary = async (file) => {
     try {
         const result = await cloudinary.uploader.upload(file.tempFilePath, {
@@ -49,7 +47,6 @@ export const createSong = async (req, res, next) => {
     }
 };
 
-
 export const deleteSong = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -67,8 +64,7 @@ export const deleteSong = async (req, res, next) => {
         console.error("Error deleting song:", error);
         next(error); 
     }
-}
-
+};
 
 export const createAlbum = async (req, res, next) => {
     try {
